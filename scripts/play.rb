@@ -23,6 +23,7 @@ def play(fname, volume)
     return
   end
   pid = spawn("while true; do sleep 0.1; afplay #{fpath} -t 100000 -v #{volume}; done")
+  puts "[Log] Playing #{fpath}"
   Process.detach(pid)
 end
 
