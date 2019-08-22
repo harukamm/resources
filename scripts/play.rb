@@ -34,6 +34,10 @@ when "talk"
   fname = "nz_talk.mp3"
 when "cafe"
   fname = "nz_cafe.mp3"
+when "nami"
+  fname = "nami.mp3"
+when "seki"
+  fname = "seki.mp3"
 end
 
 play(fname, vol)
