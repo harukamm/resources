@@ -26,7 +26,7 @@ def play(fname, volume)
   Process.detach(pid)
 end
 
-vol = (ARGV[0] ? ARGV[0] : 1).to_i
+vol = (ARGV[0] ? ARGV[0] : 1).to_f
 fname = "white-noise.mp3"
 
 case ARGV[1]
