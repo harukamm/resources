@@ -15,30 +15,33 @@ def kill_olds(pattern)
   end
 end
 
-def play(fname, volume)
+def play(fnames, volume)
   path = "~/white-noise"
-  fpath = "#{path}/#{fname}"
-  kill_olds("afplay.+#{fname}")
-  if volume == 0
-    return
+  p volume
+  fnames.each do |fname|
+    fpath = "#{path}/#{fname}"
+    kill_olds("afplay.+#{fname}")
+    if volume == 0
+      next
+    end
+    pid = spawn("while true; do sleep 0.1; afplay #{fpath} -t 100000 -v #{volume}; done")
+    puts "[Log] Playing #{fpath}"
+    Process.detach(pid)
   end
-  pid = spawn("while true; do sleep 0.1; afplay #{fpath} -t 100000 -v #{volume}; done")
-  puts "[Log] Playing #{fpath}"
-  Process.detach(pid)
 end
 
 vol = (ARGV[0] ? ARGV[0] : 1).to_f
-fname = "white-noise.mp3"
+fnames = ["white-noise.mp3"]
 
 case ARGV[1]
 when "talk"
-  fname = "nz_talk.mp3"
+  fnames = ["nz_talk.mp3"]
 when "cafe"
-  fname = "nz_cafe.mp3"
+  fnames = ["nz_cafe.mp3"]
 when "nami"
-  fname = "nami.mp3"
+  fnames = ["nami.mp3"]
 when "seki"
-  fname = "seki.mp3"
+  fnames = ["seki1.mp3", "seki2.mp3"]
 end
 
-play(fname, vol)
+play(fnames, vol)
