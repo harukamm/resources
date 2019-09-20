@@ -17,6 +17,7 @@ end
 
 def play(fnames, volume)
   path = "~/white-noise"
+  volume *= 0.3
   p volume
   fnames.each do |fname|
     fpath = "#{path}/#{fname}"
