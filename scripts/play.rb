@@ -15,11 +15,11 @@ def kill_olds(pattern)
   end
 end
 
-def play(fnames, volume)
+def play(targets)
   path = "~/white-noise"
-  volume *= 0.3
-  p volume
-  fnames.each do |fname|
+  targets.each do |target|
+    fname = target[:fname]
+    volume = target[:volume]
     fpath = "#{path}/#{fname}"
     kill_olds("afplay.+#{fname}")
     if volume == 0
@@ -31,18 +31,25 @@ def play(fnames, volume)
   end
 end
 
-vol = (ARGV[0] ? ARGV[0] : 1).to_f
-fnames = ["white-noise.mp3"]
-
-case ARGV[1]
-when "talk"
-  fnames = ["nz_talk.mp3"]
-when "cafe"
-  fnames = ["nz_cafe.mp3"]
-when "nami"
-  fnames = ["nami.mp3"]
-when "seki"
-  fnames = ["seki1.mp3", "seki2.mp3"]
+def gen_target(fname, vol)
+  return {:fname => fname, :volume => vol}
 end
 
-play(fnames, vol)
+vol = (ARGV[0] ? ARGV[0] : 1).to_f
+targets = []
+
+case ARGV[1]
+when 'talk'
+  targets.push(gen_target('nz_talk.mp3', vol * 0.4))
+when 'cafe'
+  targets.push(gen_target('nz_cafe.mp3', vol * 0.4))
+when 'nami'
+  targets.push(gen_target('nz_nami.mp3', vol * 0.4))
+when 'seki'
+  targets.push(gen_target('seki1.mp3', vol * 0.6))
+  targets.push(gen_target('seki2.mp3', vol * 0.6))
+  targets.push(gen_target('josei_seki1.mp3', vol * 1.0))
+  targets.push(gen_target('josei_seki2.mp3', vol * 1.0))
+end
+
+play(targets)
