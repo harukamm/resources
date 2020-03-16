@@ -47,8 +47,7 @@ def play_command(fpath, volume)
     return "afplay #{fpath} -t 100000 -v #{volume}"
   when :linux
     # for linux
-    # volume size will be ignored
-    return "mpg123 -q #{fpath} >/dev/null 2>&1"
+    return "mpg123 -q #{fpath} -gain #{volume} >/dev/null 2>&1"
   else
     puts "not-supported"
     exit 1
