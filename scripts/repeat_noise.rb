@@ -66,7 +66,7 @@ def play(targets)
     end
 
     fpath = "#{path}/#{fname}"
-    pid = spawn("while true; do sleep 0.1; #{play_command(fpath, volume)}; done")
+    pid = spawn("while true; do #{play_command(fpath, volume)}; done")
     puts "[Log] Playing #{fpath}"
     Process.detach(pid)
   end
@@ -98,6 +98,8 @@ when 'seki'
   targets.push(gen_target('josei_seki2.mp3', vol * 1.0))
 when 'elec2'
   targets.push(gen_target('weskyrollin.mp3', vol * 1.0))
+when 'noise-small'
+  targets.push(gen_target('small-noise.mp3', vol))
 when 'noise'
   targets.push(gen_target('noise.mp3', vol))
 end
